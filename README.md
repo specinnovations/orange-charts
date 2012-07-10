@@ -1,0 +1,4 @@
+RaphaelCharts
+=============
+
+Raphael charts library.
