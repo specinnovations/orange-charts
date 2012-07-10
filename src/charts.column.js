@@ -31,8 +31,6 @@ var ColumnChart = function( paper , x , y , chartWidth , chartHeight , values , 
     var maxValue = Math.max.apply( Math , barValues );
     var minValue = Math.min.apply( Math , barValues );
     
-    console.log( "Min Value: " , minValue , "Max Value: " , maxValue );
-    
     var factor = 1;
     var barBaseLine = 0;
     
@@ -55,9 +53,6 @@ var ColumnChart = function( paper , x , y , chartWidth , chartHeight , values , 
     	"y"     : barBaseLine,
     	"width" : chartWidth - paddingLeft - paddingRight
     };
-    
-    console.log( "Bar Width: " , barWidth );
-    console.log( "Factor: " , factor );
     
     var bars = paper.set();
     var borders = paper.set();
@@ -137,8 +132,6 @@ var ColumnChart = function( paper , x , y , chartWidth , chartHeight , values , 
         	el.charts = object;
         }
         
-        console.log( "Bar: " , el , barX , barY , height );
-        
         bars.push( el );
         
     }
@@ -152,8 +145,6 @@ var ColumnChart = function( paper , x , y , chartWidth , chartHeight , values , 
     result.bars = bars;
     result.borders = borders;
     result.labels = labels;
-    
-    console.log( "Output: " , result );
     
     return result;
     
