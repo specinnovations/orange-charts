@@ -16,21 +16,37 @@
 
 <h3>Raphael Charting Library</h3>
 
-<div id="holder-column" style="width: 800px; height: 800px;"></div>
+<div id="holder-column" style="width: 600px; height: 600px;"></div>
 
 <script type="text/javascript" src="libs/raphael.js"></script>
 <script type="text/javascript" src="src/charts.base.js"></script>
 <script type="text/javascript" src="src/charts.column.js"></script>
+<script type="text/javascript" src="src/charts.bar.js"></script>
 <script type="text/javascript">
 
 window.onload = function() {
 	
 	var paper = new Raphael( "holder-column" );
 
-	paper.text( 400 , 10 , "Column Chart" );
+	paper.text( 400 , 10 , "Bar Chart" );
 	
-	paper.columnChart( 10 , 30 , 790 , 770 , [ 100 , 200 , 100 , 300 , 300 , 125 , 300 ] , {
-		"labels" : true
+	var chart = paper.bar( 10 , 30 , 590 , 570 , [
+	                                          { "value" : 100 , "fill" : "red" },
+	                                          200,
+	                                          { "value" : 100, "custom" : "ALEX" },
+	                                          { "value" : 300, "fill" : "orange" },
+	                                          300,
+	                                          -300,
+	                                          125, 
+	                                          300 ],{
+		"labels" : true,
+		"fill" : "black"
+	});
+	
+	chart.bars.mouseover(function(){
+		
+		console.log( "Hover Bar: " , this );
+		
 	});
 	
 };

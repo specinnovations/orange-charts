@@ -1,6 +1,6 @@
 (function( Raphael , undefined  ){ 
 
-var ColumnChart = function( paper , x , y , chartWidth , chartHeight , values , options ) {
+var BarChart = function( paper , x , y , chartWidth , chartHeight , values , options ) {
 	
 	options.labelFont = options.labelFont || "10px sans-serif";
   
@@ -20,13 +20,13 @@ var ColumnChart = function( paper , x , y , chartWidth , chartHeight , values , 
         
     }
     
-    var paddingTop = 5;
-    var paddingBottom = (options.labels) ? 30 : 5;
-    var paddingLeft = ((options.labels) ? 75 : 5);
+    var paddingTop = 30;
+    var paddingBottom = 5;
+    var paddingLeft = 5;
     var paddingRight = 5;
     
     var gutterWidth = 5;
-    var barWidth = (chartWidth - paddingLeft - paddingRight)/barValues.length - gutterWidth - (gutterWidth/barValues.length);
+    var barWidth = (chartHeight - paddingBottom - paddingTop)/barValues.length - gutterWidth - (gutterWidth/barValues.length);
     
     var maxValue = Math.max.apply( Math , barValues );
     var minValue = Math.min.apply( Math , barValues );
@@ -37,22 +37,22 @@ var ColumnChart = function( paper , x , y , chartWidth , chartHeight , values , 
     var barBaseLine = 0;
     
     if( minValue < 0 ) {
-    	factor = (chartHeight - paddingBottom + paddingTop)/( maxValue + (minValue*-1) );
-    	barBaseLine = y + chartHeight - paddingBottom + paddingTop*2 - (minValue*-1*factor);
+    	factor = (chartWidth - paddingLeft - paddingRight)/( maxValue + (minValue*-1) );
+    	barBaseLine = x + paddingLeft + (minValue*-1*factor);
     } else {
-    	factor = (chartHeight - paddingBottom - paddingTop)/( maxValue );
-    	barBaseLine = y + chartHeight - paddingBottom + paddingTop*2;
+    	factor = (chartWidth - paddingLeft - paddingRight)/( maxValue );
+    	barBaseLine = x + chartWidth + paddingLeft - paddingRight;
     }
     
     var yaxis = {
-    	"x"      : x + paddingLeft,
+    	"x"      : barBaseLine,
     	"y"      : y + paddingTop,
     	"height" : chartHeight - paddingBottom + paddingTop
     };
     
     var xaxis = {
     	"x"     : x + paddingLeft,
-    	"y"     : barBaseLine,
+    	"y"     : y+  paddingTop,
     	"width" : chartWidth - paddingLeft - paddingRight
     };
     
@@ -96,11 +96,11 @@ var ColumnChart = function( paper , x , y , chartWidth , chartHeight , values , 
 	    	if( i % interval == 0 ) {
 	    			
 	    		var path = [
-	        	            "M" , xaxis.x - 3 , yaxis.y + yaxis.height - (factor*counter),
-	        	            "L" , xaxis.x + 3 , yaxis.y + yaxis.height - (factor*counter)
+	        	            "M" , xaxis.x + (factor*counter) , xaxis.y - 3,
+	        	            "L" , xaxis.x + (factor*counter) , xaxis.y + 3
 	        	            ];
 	        	
-	        	labels.push( paper.text( yaxis.x - 25 , yaxis.y + yaxis.height - (factor * counter) , i ).attr( 'font' , options.labelFont ) );
+	        	labels.push( paper.text( xaxis.x + (factor*counter) , xaxis.y - 20, i ).transform( "r90" ).attr( 'font' , options.labelFont ) );
 	        	borders.push( paper.path( path.join(",") ) );
 	        	
 	    	}
@@ -117,14 +117,14 @@ var ColumnChart = function( paper , x , y , chartWidth , chartHeight , values , 
         var object = values[i];
         
         var height = value * factor;
-        var barX = yaxis.x + (bars.length * (barWidth + gutterWidth)) + gutterWidth;
-        var barY = xaxis.y - height;
+        var barX = yaxis.x + height;
+        var barY = xaxis.y + (bars.length * (barWidth + gutterWidth)) + gutterWidth;
         
         var path = [
-                    "M" , barX, xaxis.y,
+                    "M" , yaxis.x, barY,
                     "L" , barX, barY,
-                    "L" , barX+barWidth, barY,
-                    "L" , barX+barWidth, xaxis.y
+                    "L" , barX, barY+barWidth,
+                    "L" , yaxis.x, barY+barWidth
         ];
         
         var el = paper.path( path.join(",") ).attr("fill",  object.fill || options.fill || "blue" )
@@ -159,8 +159,8 @@ var ColumnChart = function( paper , x , y , chartWidth , chartHeight , values , 
     
 };
 
-Raphael.fn.column = function( x , y , width , height , values , options ) {
-    return new ColumnChart( this , x , y , width , height , values , options  );
+Raphael.fn.bar = function( x , y , width , height , values , options ) {
+    return new BarChart( this , x , y , width , height , values , options  );
 };
  
 })( Raphael);
