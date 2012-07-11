@@ -60,17 +60,14 @@ var BarChart = function( paper , x , y , chartWidth , chartHeight , values , opt
   
     
     if( options.xaxis !== false ) {
-    	borders.push(paper.path([
-    	                         "M" + xaxis.x , xaxis.y,
-    	                         "L" + (xaxis.x + xaxis.width) , xaxis.y
-    	                         ].join(",")));
+    	borders.push(paper.path(
+    	                         "M" + xaxis.x  + "," +  xaxis.y +
+    	                         "L" + (xaxis.x + xaxis.width)  + "," +  xaxis.y));
     }
     
     if( options.yaxis !== false ) {
-    	borders.push(paper.path([
-    	                         "M" + yaxis.x , yaxis.y,
-    	                         "L" + yaxis.x , yaxis.y + yaxis.height
-    	                         ].join(",")));
+    	borders.push(paper.path("M" + yaxis.x + "," + yaxis.y,
+    	                         "L" + yaxis.x + "," + (yaxis.y + yaxis.height)));
     }
     
     if( options.labels !== false ) {
@@ -78,25 +75,25 @@ var BarChart = function( paper , x , y , chartWidth , chartHeight , values , opt
     	var counter = 0;
 	    var interval = 1;
 	    
-	    if( maxValue > 100 || minValue < -100 ) {
-	    	interval = 10;
-	    } else if( maxValue > 1000 || minValue < -1000 ) {
+	    if( maxValue > 1000 || minValue < -1000 ) {
 	    	interval = 100;
+	    } else if( maxValue > 500 || minValue < -500 ) {
+	    	interval = 50;
+	    } else if( maxValue > 100 || minValue < -100 ) {
+	    	interval = 15;
 	    } else {
-	    	interval = 1;
+	    	interval = 10;
 	    }
 	    
 	    for( var i=(minValue < 0) ? minValue : 1, ii=maxValue; i<=ii; i++ ) {
 	    	
 	    	if( i % interval == 0 ) {
 	    			
-	    		var path = [
-	        	            "M" + (xaxis.x + (factor*counter)) , xaxis.y - 3,
-	        	            "L" + (xaxis.x + (factor*counter)) , xaxis.y + 3
-	        	            ];
+	    		var path =  "M" + (xaxis.x + (factor*counter)) + "," + (xaxis.y - 3) +
+	        	            "L" + (xaxis.x + (factor*counter)) + "," + (xaxis.y + 3);
 	        	
 	        	labels.push( paper.text( xaxis.x + (factor*counter) , xaxis.y - 20, i ).transform( "r90" ).attr( 'font' , options.labelFont ) );
-	        	borders.push( paper.path( path.join(",") ) );
+	        	borders.push( paper.path( path ) );
 	        	
 	    	}
 	    	
@@ -115,20 +112,15 @@ var BarChart = function( paper , x , y , chartWidth , chartHeight , values , opt
         var barX = yaxis.x + height;
         var barY = xaxis.y + (bars.length * (barWidth + gutterWidth)) + gutterWidth;
         
-        var path = [
-                    "M" + yaxis.x, barY,
-                    "L" + barX, barY,
-                    "L" + barX, barY+barWidth,
-                    "L" + yaxis.x, barY+barWidth
-        ];
+        var path = "M" + yaxis.x  + "," + barY +
+                    "L" + barX + "," + barY +
+                    "L" + barX + "," + (barY+barWidth)+
+                    "L" + yaxis.x + "," + (barY+barWidth);
         
-        var el = paper.path( path.join(",") ).attr("fill",  object.fill || options.fill || "blue" )
+        var el = paper.path( path ).attr("fill",  object.fill || options.fill || "blue" )
         									 .attr( "stroke" , object.stroke || options.stroke || "black" );
         
         if( Raphael.is( object , "object" ) ) {
-        	delete object.value;
-        	delete object.fill;
-        	delete object.stroke;
         	el.charts = object;
         }
         
