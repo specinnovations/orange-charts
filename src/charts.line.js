@@ -105,7 +105,7 @@ var LineChart = function( paper , x , y , chartWidth , chartHeight , values , op
 	    			
 	    		var path = [
 	        	            "M" , xaxis.x + (xFactor*xCounter) , xaxis.y - 3,
-	        	            "L" , xaxis.x + (xFactor*xCounter) , xaxis.y + 3,
+	        	            "L" , xaxis.x + (xFactor*xCounter) , xaxis.y + 3
 	        	            ];
 	        	
 	        	borders.push( paper.path( path.join(",") ) );
