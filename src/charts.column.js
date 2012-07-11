@@ -21,8 +21,8 @@ var ColumnChart = function( paper , x , y , chartWidth , chartHeight , values , 
     }
     
     var paddingTop = 5;
-    var paddingBottom = (options.labels !== false) ? 25 : 5;
-    var paddingLeft = ((options.labels !== false) ? 50 : 5);
+    var paddingBottom = (options.labels !== false) ? 20 : 5;
+    var paddingLeft = ((options.labels !== false) ? 20 : 5);
     var paddingRight = 5;
     
     var gutterWidth = 5;
