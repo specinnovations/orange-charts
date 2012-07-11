@@ -50,7 +50,7 @@ var BarChart = function( paper , x , y , chartWidth , chartHeight , values , opt
     
     var xaxis = {
     	"x"     : x + paddingLeft,
-    	"y"     : y+  paddingTop,
+    	"y"     : y + paddingTop,
     	"width" : chartWidth - paddingLeft - paddingRight
     };
     
@@ -61,15 +61,15 @@ var BarChart = function( paper , x , y , chartWidth , chartHeight , values , opt
     
     if( options.xaxis !== false ) {
     	borders.push(paper.path([
-    	                         "M" , xaxis.x , xaxis.y,
-    	                         "L" , xaxis.x + xaxis.width , xaxis.y
+    	                         "M" + xaxis.x , xaxis.y,
+    	                         "L" + (xaxis.x + xaxis.width) , xaxis.y
     	                         ].join(",")));
     }
     
     if( options.yaxis !== false ) {
     	borders.push(paper.path([
-    	                         "M" , yaxis.x , yaxis.y,
-    	                         "L" , yaxis.x , yaxis.y + yaxis.height
+    	                         "M" + yaxis.x , yaxis.y,
+    	                         "L" + yaxis.x , yaxis.y + yaxis.height
     	                         ].join(",")));
     }
     
@@ -91,8 +91,8 @@ var BarChart = function( paper , x , y , chartWidth , chartHeight , values , opt
 	    	if( i % interval == 0 ) {
 	    			
 	    		var path = [
-	        	            "M" , xaxis.x + (factor*counter) , xaxis.y - 3,
-	        	            "L" , xaxis.x + (factor*counter) , xaxis.y + 3
+	        	            "M" + (xaxis.x + (factor*counter)) , xaxis.y - 3,
+	        	            "L" + (xaxis.x + (factor*counter)) , xaxis.y + 3
 	        	            ];
 	        	
 	        	labels.push( paper.text( xaxis.x + (factor*counter) , xaxis.y - 20, i ).transform( "r90" ).attr( 'font' , options.labelFont ) );
@@ -116,10 +116,10 @@ var BarChart = function( paper , x , y , chartWidth , chartHeight , values , opt
         var barY = xaxis.y + (bars.length * (barWidth + gutterWidth)) + gutterWidth;
         
         var path = [
-                    "M" , yaxis.x, barY,
-                    "L" , barX, barY,
-                    "L" , barX, barY+barWidth,
-                    "L" , yaxis.x, barY+barWidth
+                    "M" + yaxis.x, barY,
+                    "L" + barX, barY,
+                    "L" + barX, barY+barWidth,
+                    "L" + yaxis.x, barY+barWidth
         ];
         
         var el = paper.path( path.join(",") ).attr("fill",  object.fill || options.fill || "blue" )

@@ -64,15 +64,15 @@ var ColumnChart = function( paper , x , y , chartWidth , chartHeight , values , 
     
     if( options.xaxis !== false ) {
     	borders.push(paper.path([
-    	                         "M" , xaxis.x , xaxis.y,
-    	                         "L" , xaxis.x + xaxis.width , xaxis.y
+    	                         "M" + xaxis.x , xaxis.y,
+    	                         "L" + xaxis.x + xaxis.width , xaxis.y
     	                         ].join(",")));
     }
     
     if( options.yaxis !== false ) {
     	borders.push(paper.path([
-    	                         "M" , yaxis.x , yaxis.y,
-    	                         "L" , yaxis.x , yaxis.y + yaxis.height
+    	                         "M" + yaxis.x , yaxis.y,
+    	                         "L" + yaxis.x , yaxis.y + yaxis.height
     	                         ].join(",")));
     }
     
@@ -96,8 +96,8 @@ var ColumnChart = function( paper , x , y , chartWidth , chartHeight , values , 
 	    	if( i % interval == 0 ) {
 	    			
 	    		var path = [
-	        	            "M" , xaxis.x - 3 , yaxis.y + yaxis.height - (factor*counter),
-	        	            "L" , xaxis.x + 3 , yaxis.y + yaxis.height - (factor*counter)
+	        	            "M" + (xaxis.x - 3) , yaxis.y + yaxis.height - (factor*counter),
+	        	            "L" + (xaxis.x + 3) , yaxis.y + yaxis.height - (factor*counter)
 	        	            ];
 	        	
 	        	borders.push( paper.path( path.join(",") ) );
@@ -130,10 +130,10 @@ var ColumnChart = function( paper , x , y , chartWidth , chartHeight , values , 
         var barY = xaxis.y - height;
         
         var path = [
-                    "M" , barX, xaxis.y,
-                    "L" , barX, barY,
-                    "L" , barX+barWidth, barY,
-                    "L" , barX+barWidth, xaxis.y
+                    "M" + barX, xaxis.y,
+                    "L" + barX, barY,
+                    "L" + (barX+barWidth), barY,
+                    "L" + (barX+barWidth), xaxis.y
         ];
         
         var el = paper.path( path.join(",") ).attr("fill",  object.fill || options.fill || "blue" )
