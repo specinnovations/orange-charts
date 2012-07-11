@@ -125,6 +125,10 @@ var ColumnChart = function( paper , x , y , chartWidth , chartHeight , values , 
         var el = paper.path( path.join(",") ).attr("fill",  object.fill || options.fill || "blue" )
         									 .attr( "stroke" , object.stroke || options.stroke || "black" );
         
+        el.x = barX+ (barWidth/2);
+        el.top = barY;
+        el.bottom = xaxis.y;
+        
         if( Raphael.is( object , "object" ) ) {
         	delete object.value;
         	delete object.fill;
