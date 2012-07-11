@@ -79,11 +79,13 @@ var ColumnChart = function( paper , x , y , chartWidth , chartHeight , values , 
 	    var interval = 1;
 	    
 	    if( maxValue > 100 || minValue < -100 ) {
-	    	interval = 10;
+	    	interval = 15;
+	    } else if( maxValue > 500 || minValue < -500 ) {
+	    	interval = 50;
 	    } else if( maxValue > 1000 || minValue < -1000 ) {
 	    	interval = 100;
 	    } else {
-	    	interval = 1;
+	    	interval = 10;
 	    }
 	    
 	    for( var i=(minValue < 0) ? minValue : 1, ii=maxValue; i<=ii; i++ ) {
