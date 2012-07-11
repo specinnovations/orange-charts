@@ -97,9 +97,12 @@ var ColumnChart = function( paper , x , y , chartWidth , chartHeight , values , 
 	        	            "L" , xaxis.x + 3 , yaxis.y + yaxis.height - (factor*counter)
 	        	            ];
 	        	
-	        	labels.push( paper.text( yaxis.x - 25 , yaxis.y + yaxis.height - (factor * counter) , i ).attr( 'font' , options.labelFont ) );
 	        	borders.push( paper.path( path.join(",") ) );
 	        	
+	    	}
+	    	
+	    	if( i % (interval*2) == 0 ) {
+	    		labels.push( paper.text( yaxis.x - 25 , yaxis.y + yaxis.height - (factor * counter) , i ).attr( 'font' , options.labelFont ) );
 	    	}
 	    	
 	    	counter++;
