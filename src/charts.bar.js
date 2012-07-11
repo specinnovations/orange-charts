@@ -150,7 +150,7 @@ var BarChart = function( paper , x , y , chartWidth , chartHeight , values , opt
     
 };
 
-Raphael.fn.bar = function( x , y , width , height , values , options ) {
+Raphael.fn.barchart = function( x , y , width , height , values , options ) {
     return new BarChart( this , x , y , width , height , values , options  );
 };
  

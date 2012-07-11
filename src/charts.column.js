@@ -2,7 +2,16 @@
 
 var ColumnChart = function( paper , x , y , chartWidth , chartHeight , values , options ) {
 	
+	options = options || {};
+	options.labels = (options.labels !== false);
 	options.labelFont = options.labelFont || "10px sans-serif";
+	
+	var paddingTop = options.paddingTop = options.paddingTop || 5;
+	var paddingBottom = options.paddingBottom = options.paddingBottom || options.labels ? 20 : 5;
+	var paddingLeft = options.paddingLeft = options.paddingLeft || options.labels ? 20 : 5;
+	var paddingRight = options.paddingRight = options.paddingRight || 5;
+	var gutterWidth = options.gutterWidth = options.gutterWidth || 5;
+	
   
     var barValues = [];
     
@@ -20,13 +29,7 @@ var ColumnChart = function( paper , x , y , chartWidth , chartHeight , values , 
         
     }
     
-    var paddingTop = 5;
-    var paddingBottom = (options.labels !== false) ? 20 : 5;
-    var paddingLeft = ((options.labels !== false) ? 20 : 5);
-    var paddingRight = 5;
-    
-    var gutterWidth = 5;
-    var barWidth = (chartWidth - paddingLeft - paddingRight)/barValues.length - gutterWidth - (gutterWidth/barValues.length);
+    var barWidth = (chartWidth - paddingLeft - paddingRight)/values.length - gutterWidth - (gutterWidth/values.length);
     
     var maxValue = Math.max.apply( Math , barValues );
     var minValue = Math.min.apply( Math , barValues );
@@ -111,10 +114,16 @@ var ColumnChart = function( paper , x , y , chartWidth , chartHeight , values , 
     	
     }
                                    
-    for( var i=0, ii=barValues.length; i<ii; i++ ) {
-        
-        var value = barValues[i];
-        var object = values[i];
+    for( var i=0, ii=values.length; i<ii; i++ ) {
+    	
+    	 var value;
+    	 var object = values[i];
+         
+        if( Raphael.is( values[i] , "object" ) ) {
+            value = parseInt(values[i].value);                
+        } else {
+            value = parseInt(values[i]);
+        }
         
         var height = value * factor;
         var barX = yaxis.x + (bars.length * (barWidth + gutterWidth)) + gutterWidth;
@@ -159,7 +168,7 @@ var ColumnChart = function( paper , x , y , chartWidth , chartHeight , values , 
     
 };
 
-Raphael.fn.column = function( x , y , width , height , values , options ) {
+Raphael.fn.columnchart = function( x , y , width , height , values , options ) {
     return new ColumnChart( this , x , y , width , height , values , options  );
 };
  
