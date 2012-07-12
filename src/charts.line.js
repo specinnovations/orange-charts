@@ -176,13 +176,13 @@
 		    	}
 		    	
 		    	
-		    	var circle = paper.circle( xValue , yValue , 5 ).attr( 'fill' , 'black' );
+		    	var circle = paper.circle( xValue , yValue , 5 ).attr( 'fill' , '#222' );
 		    	
 		    	circle.charts = object;
 		    	
 		    	points.push( circle );
 	    		
-	    		stroke = object.fill || options.fill || "blue";
+	    		stroke = object.fill || options.fill || "#222";
 		     
 	    	}
 	    	
