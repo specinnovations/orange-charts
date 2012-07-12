@@ -20,12 +20,12 @@ var BarChart = function( paper , x , y , chartWidth , chartHeight , values , opt
         
     }
     
-    var paddingTop = 30;
-    var paddingBottom = 5;
-    var paddingLeft = 5;
-    var paddingRight = 5;
-    
-    var gutterWidth = 5;
+    var paddingTop = options.paddingTop = options.paddingTop || options.labels ? 20 : 5;
+	var paddingBottom = options.paddingBottom = options.paddingBottom || 5;
+	var paddingLeft = options.paddingLeft = options.paddingLeft || 5;
+	var paddingRight = options.paddingRight = options.paddingRight || 5;
+	var gutterWidth = options.gutterWidth = options.gutterWidth || 5;
+   
     var barWidth = (chartHeight - paddingBottom - paddingTop)/barValues.length - gutterWidth - (gutterWidth/barValues.length);
     
     var maxValue = Math.max.apply( Math , barValues );
