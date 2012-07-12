@@ -138,6 +138,9 @@ var BarChart = function( paper , x , y , chartWidth , chartHeight , values , opt
     result.borders = borders;
     result.labels = labels;
     
+    result.bars.toFront();
+    result.labels.toFront();
+    
     return result;
     
 };
