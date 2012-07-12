@@ -7,7 +7,7 @@
 		options.labelFont = options.labelFont || "10px sans-serif";
 		
 		var paddingTop = options.paddingTop = options.paddingTop || 10;
-		var paddingBottom = options.paddingBottom = options.paddingBottom || options.labels ? 30 : 10;
+		var paddingBottom = options.paddingBottom = options.paddingBottom || options.labels ? 30 : 20;
 		var paddingLeft = options.paddingLeft = options.paddingLeft || options.labels ? 30 : 10;
 		var paddingRight = options.paddingRight = options.paddingRight || 10;
 		
@@ -17,16 +17,22 @@
 	    
 	    for( var i=0, ii=values.length; i<ii; i++ ) {
 	    	for( var j=0, jj=values[i].length; j<jj; j++ ) {
-	    		xValues.push( parseInt(values[i][j].x) );
-	        	yValues.push( parseInt(values[i][j].y) );
+	    		xValues.push( values[i][j].x );
+	        	yValues.push( values[i][j].y );
 	    	}
 	    }
+	    
+	    console.log( "xValues" , xValues );
+	    console.log( "yValues" , yValues );
 	    
 	    var maxXValue = Math.max.apply( Math , xValues );
 	    var minXValue = Math.min.apply( Math , xValues );
 	    
 	    var maxYValue = Math.max.apply( Math , yValues );
 	    var minYValue = Math.min.apply( Math , yValues );
+	    
+	    console.log( "X" , maxXValue , minXValue );
+	    console.log( "Y" , maxYValue , minYValue );
 	    
 	    var xFactor = 1;
 	    var yFactor = 1;
@@ -37,7 +43,7 @@
 	    	xFactor = (chartWidth - paddingLeft - paddingRight)/( maxXValue + (minXValue*-1) );
 	    	xBaseLine = x + paddingLeft + (minXValue*-1*xFactor);
 	    } else {
-	    	xFactor = (chartWidth - paddingLeft - paddingRight)/( maxXValue );
+	    	xFactor = maxXValue != 0 ?  (chartWidth - paddingLeft - paddingRight)/( maxXValue ) : 1;
 	    	xBaseLine = x + paddingLeft;
 	    }
 	    
@@ -45,7 +51,7 @@
 	    	yFactor = (chartHeight - paddingBottom + paddingTop)/( maxYValue + (minYValue*-1) );
 	    	yBaseLine = y + chartHeight - paddingBottom + paddingTop*2 - (minYValue*-1*yFactor);
 	    } else {
-	    	yFactor = (chartHeight - paddingBottom - paddingTop)/( maxYValue );
+	    	yFactor = maxYValue != 0 ? (chartHeight - paddingBottom - paddingTop)/( maxYValue ) : 1;
 	    	yBaseLine = y + chartHeight - paddingBottom + paddingTop*2;
 	    }
 	    
@@ -142,6 +148,8 @@
 		    }
 	    	
 	    }
+	    
+	    console.log( "Factor" , xFactor , yFactor );
 	                                   
 	    for( var i=0, ii=values.length; i<ii; i++ ) {
 	    	
@@ -156,8 +164,10 @@
 	    	
 		    	var object = values[i][j];
 		    	 
-		    	var xValue = xaxis.x + object.x*xFactor;
-		    	var yValue = xaxis.y - object.y*yFactor;
+		    	var xValue = xaxis.x + (object.x*xFactor);
+		    	var yValue = xaxis.y - (object.y*yFactor);
+		    	
+		    	console.log( object , xValue , yValue );
 		    	
 		    	if( j == 0 ) {
 		    		path.push( "M" + xValue + "," + yValue );
@@ -197,6 +207,9 @@
 	    result.borders = borders;
 	    result.labels = labels;
 	    result.points = points;
+	    
+	    result.lines.toFront();
+	    result.points.toFront();
 	    
 	    return result;
 	    
