@@ -1,4 +1,4 @@
-(function( Raphael , undefined  ){ 
+(function( Raphael , undefined  ){
 
 	var LineChart = function( paper , x , y , chartWidth , chartHeight , values , options ) {
 		
@@ -22,17 +22,11 @@
 	    	}
 	    }
 	    
-	    console.log( "xValues" , xValues );
-	    console.log( "yValues" , yValues );
-	    
 	    var maxXValue = Math.max.apply( Math , xValues );
 	    var minXValue = Math.min.apply( Math , xValues );
 	    
 	    var maxYValue = Math.max.apply( Math , yValues );
 	    var minYValue = Math.min.apply( Math , yValues );
-	    
-	    console.log( "X" , maxXValue , minXValue );
-	    console.log( "Y" , maxYValue , minYValue );
 	    
 	    var xFactor = 1;
 	    var yFactor = 1;
@@ -148,8 +142,6 @@
 		    }
 	    	
 	    }
-	    
-	    console.log( "Factor" , xFactor , yFactor );
 	                                   
 	    for( var i=0, ii=values.length; i<ii; i++ ) {
 	    	
@@ -167,8 +159,6 @@
 		    	var xValue = xaxis.x + (object.x*xFactor);
 		    	var yValue = xaxis.y - (object.y*yFactor);
 		    	
-		    	console.log( object , xValue , yValue );
-		    	
 		    	if( j == 0 ) {
 		    		path.push( "M" + xValue + "," + yValue );
 		    	} else {
@@ -177,6 +167,10 @@
 		    	
 		    	
 		    	var circle = paper.circle( xValue , yValue , 5 ).attr( 'fill' , '#222' );
+		    	
+		    	circle.x = xValue;
+		    	circle.y = yValue;
+		    	circle.radius = 5;
 		    	
 		    	circle.charts = object;
 		    	
@@ -208,15 +202,23 @@
 	    result.labels = labels;
 	    result.points = points;
 	    
+	    result.points.hover = function( fin , fout ) {
+	    	return this.mouseover(fin).mouseout(fout);
+	    };
+	    
 	    result.lines.toFront();
 	    result.points.toFront();
 	    
 	    return result;
 	    
 	};
+	
+var ctor = function() {};
+ctor.prototype = Raphael.g;
+LineChart.prototype = new ctor;
 
-	Raphael.fn.linechart = function( x , y , width , height , values , options ) {
-	    return new LineChart( this , x , y , width , height , values , options  );
-	};
+Raphael.fn.linechart = function( x , y , width , height , values , options ) {
+    return new LineChart( this , x , y , width , height , values , options  );
+};
 	 
-	})( Raphael);
+})( Raphael );

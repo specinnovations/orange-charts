@@ -145,8 +145,12 @@ var BarChart = function( paper , x , y , chartWidth , chartHeight , values , opt
     
 };
 
+var ctor = function() {};
+ctor.prototype = Raphael.g;
+BarChart.prototype = new ctor;
+
 Raphael.fn.barchart = function( x , y , width , height , values , options ) {
     return new BarChart( this , x , y , width , height , values , options  );
 };
  
-})( Raphael);
+})( Raphael );

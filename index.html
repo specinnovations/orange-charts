@@ -17,6 +17,7 @@
 <h3>Raphael Charting Library</h3>
 
 <div id="holder-column" style="width: 600px; height: 600px;"></div>
+<div id="holder-line" style="width: 600px; height: 600px;"></div>
 
 <script type="text/javascript" src="libs/raphael.js"></script>
 <script type="text/javascript" src="src/charts.column.js"></script>
@@ -26,11 +27,11 @@
 
 window.onload = function() {
 	
-	var paper = new Raphael( "holder-column" );
+	var linePaper = new Raphael( "holder-line" );
 
-	paper.text( 400 , 10 , "Bar Chart" );
+	linePaper.text( 400 , 10 , "Line Chart" );
 	
-	var chart = paper.linechart( 10 , 30 , 590 , 570 , [[
+	var chartLine = linePaper.linechart( 10 , 30 , 590 , 570 , [[
 	                                          { "x" : 0 , "y" : 0, "stroke" : "red" },
 	                                          { "x" : 10 , "y" : 0, "stroke" : "red" },
 	                                          { "x" : 20 , "y" : 0, "stroke" : "red" },
@@ -38,6 +39,15 @@ window.onload = function() {
 	                                          { "x" : 40 , "y" : 0, "stroke" : "red" },
 	                                          { "x" : 50 , "y" : 0, "stroke" : "red" }
 	                                      ]],{
+		"labels" : true,
+		"fill" : "black"
+	});
+	
+	var columnPaper = new Raphael( "holder-column" );
+
+	columnPaper.text( 400 , 10 , "Column Chart" );
+	
+	var chartColumn = columnPaper.columnchart( 10 , 30 , 590 , 570 , [ 10 , 25 , 20 , 15 , 35],{
 		"labels" : true,
 		"fill" : "black"
 	});

@@ -126,12 +126,17 @@
 	        var barY = xaxis.y - height;
 	        
 	        var path =  "M" + barX + "," + xaxis.y +
-	                    "L" + barX + "," + barY +
-	                    "L" + (barX+barWidth) + "," + barY +
+	                    "L" + barX + "," + xaxis.y +
+	                    "L" + (barX+barWidth) + "," + xaxis.y +
 	                    "L" + (barX+barWidth) + "," + xaxis.y;
 	        
 	        var el = paper.path( path ).attr("fill",  object.fill || options.fill || "blue" )
 	        									 .attr( "stroke" , object.stroke || options.stroke || "black" );
+	        
+	        el.animate({ "path" : "M" + barX + "," + xaxis.y +
+                "L" + barX + "," + barY +
+                "L" + (barX+barWidth) + "," + barY +
+                "L" + (barX+barWidth) + "," + xaxis.y } , 1000 );
 	        
 	        el.x = barX+ (barWidth/2);
 	        el.top = barY;
@@ -155,12 +160,19 @@
 	    result.borders = borders;
 	    result.labels = labels;
 	    
+	    result.bars.toFront();
+	    result.labels.toFront();
+	    
 	    return result;
 	    
 	};
+	
+var ctor = function() {};
+ctor.prototype = Raphael.g;
+ColumnChart.prototype = new ctor;
 
-	Raphael.fn.columnchart = function( x , y , width , height , values , options ) {
-	    return new ColumnChart( this , x , y , width , height , values , options  );
-	};
-	 
-	})( Raphael);
+Raphael.fn.columnchart = function( x , y , width , height , values , options ) {
+    return new ColumnChart( this , x , y , width , height , values , options  );
+};
+ 
+})( Raphael );
