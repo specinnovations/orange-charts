@@ -1,17 +1,26 @@
 (function( Raphael , undefined  ){ 
 
 	var ColumnChart = function( paper , x , y , chartWidth , chartHeight , values , options ) {
+	
+		Raphael.getColor.reset()
 		
 		options = options || {};
+		options.title = options.title || null;
 		options.labels = (options.labels !== false);
 		options.labelFont = options.labelFont || "10px sans-serif";
 		
-		var paddingTop = options.paddingTop = options.paddingTop || 5;
-		var paddingBottom = options.paddingBottom = options.paddingBottom || options.labels ? 20 : 5;
-		var paddingLeft = options.paddingLeft = options.paddingLeft || options.labels ? 20 : 5;
+		var paddingTop = options.paddingTop = options.paddingTop || 10;
+		var paddingBottom = options.paddingBottom = options.paddingBottom || (options.labels ? 30 : 5);
+		var paddingLeft = options.paddingLeft = options.paddingLeft || (options.labels ? 30 : 5);
 		var paddingRight = options.paddingRight = options.paddingRight || 5;
 		var gutterWidth = options.gutterWidth = options.gutterWidth || 5;
 		
+		if( options.title ) {
+			paper.text( chartWidth/2 + paddingLeft , paddingTop , options.title ).attr({
+				"font" : "15px sans-serif",
+				"text-anchor" : "middle"
+			});
+		}
 	  
 	    var barValues = [];
 	    
@@ -38,23 +47,26 @@
 	    var barBaseLine = 0;
 	    
 	    if( minValue < 0 ) {
-	    	factor = (chartHeight - paddingBottom + paddingTop)/( maxValue + (minValue*-1) );
-	    	barBaseLine = y + chartHeight - paddingBottom + paddingTop*2 - (minValue*-1*factor);
+	    	factor = (chartHeight - paddingBottom - paddingTop)/( maxValue + (minValue*-1) );
+	    	barBaseLine = y + paddingTop  + chartHeight - paddingBottom - (minValue*-1*factor);
 	    } else {
 	    	factor = (chartHeight - paddingBottom - paddingTop)/( maxValue );
-	    	barBaseLine = y + chartHeight - paddingBottom + paddingTop*2;
+	    	barBaseLine = y + chartHeight - paddingBottom + paddingTop;
 	    }
 	    
-	    var yaxis = {
-	    	"x"      : x + paddingLeft,
-	    	"y"      : y + paddingTop,
-	    	"height" : chartHeight - paddingBottom + paddingTop
-	    };
+	    console.log( "Factor: " , factor );
+	    console.log( "Baseline: " , barBaseLine );
 	    
-	    var xaxis = {
+	     var xaxis = {
 	    	"x"     : x + paddingLeft,
 	    	"y"     : barBaseLine,
 	    	"width" : chartWidth - paddingLeft - paddingRight
+	    };
+	    
+	    var yaxis = {
+	    	"x"      : x + paddingLeft,
+	    	"y"      : y + paddingTop*2,
+	    	"height" : chartHeight - paddingTop - paddingBottom
 	    };
 	    
 	    var bars = paper.set();
@@ -74,22 +86,30 @@
 	    	                         ));
 	    }
 	    
-	    if( options.labels !== false ) {
+	    borders.attr({
+	    	"stroke"         : "#000",
+		    "stroke-opacity" : 1,
+		    "opacity"        : 1
+	    });
+	    
+	    if( options.labels ) {
 	    	
 	    	var counter = 0;
 		    var interval = 1;
 		    
-		    if( maxValue > 1000 || minValue < -1000 ) {
-		    	interval = 100;
-		    } else if( maxValue > 500 || minValue < -500 ) {
-		    	interval = 50;
-		    } else if( maxValue > 100 || minValue < -100 ) {
-		    	interval = 15;
-		    } else {
-		    	interval = 10;
-		    }
+		    if (maxValue > 1000 || minValue < -1000) {
+	            interval = 100;
+	        } else if (maxValue > 500 || minValue < -500) {
+	            interval = 50;
+	        } else if (maxValue > 250 || minValue < -250) {
+	            interval = 10;
+	        }  else if (maxValue > 100 || minValue < -100) {
+	            interval = 5;
+	        } else {
+	            interval = 2;
+	        }
 		    
-		    for( var i=(minValue < 0) ? minValue : 1, ii=maxValue; i<=ii; i++ ) {
+		    for( var i=(minValue < 0) ? minValue : 0, ii=maxValue; i<=ii; i++ ) {
 		    	
 		    	if( i % interval == 0 ) {
 		    			
@@ -100,8 +120,15 @@
 		        	
 		    	}
 		    	
-		    	if( i % (interval*2) == 0 ) {
-		    		labels.push( paper.text( yaxis.x - 25 , yaxis.y + yaxis.height - (factor * counter) , i ).attr( 'font' , options.labelFont ) );
+		    	if( i % (interval*2) == 0 || i == 0 ) {
+		    		
+		    		var label = paper.text( yaxis.x - 10 , yaxis.y + yaxis.height - (factor * counter) , i ).attr({
+		    			"font"        : options.labelFont,
+		    			"text-anchor" : "end"
+		    		});
+		    	
+		    		labels.push( label );
+		    		
 		    	}
 		    	
 		    	counter++;
@@ -114,6 +141,7 @@
 	    	
 	    	 var value;
 	    	 var object = values[i];
+	    	 var color = object.color || Raphael.getColor();
 	         
 	        if( Raphael.is( values[i] , "object" ) ) {
 	            value = parseInt(values[i].value);                
@@ -124,25 +152,40 @@
 	        var height = value * factor;
 	        var barX = yaxis.x + (bars.length * (barWidth + gutterWidth)) + gutterWidth;
 	        var barY = xaxis.y - height;
+	        var bottom = (xaxis.y+((value < 0) ? 1 : -1))
 	        
-	        var path =  "M" + barX + "," + xaxis.y +
-	                    "L" + barX + "," + xaxis.y +
-	                    "L" + (barX+barWidth) + "," + xaxis.y +
-	                    "L" + (barX+barWidth) + "," + xaxis.y;
+	        var path =  "M" + barX + "," + (xaxis.y-2) +
+	                    "L" + barX + "," + (xaxis.y-2) +
+	                    "L" + (barX+barWidth) + "," + bottom +
+	                    "L" + (barX+barWidth) + "," + bottom;
 	        
-	        var el = paper.path( path ).attr("fill",  object.fill || options.fill || "blue" )
-	        									 .attr( "stroke" , object.stroke || options.stroke || "black" );
+	        var el = paper.path( path ).attr({
+		        "fill"   : color,
+		        "stroke" : color
+	        });
 	        
-	        el.animate({ "path" : "M" + barX + "," + xaxis.y +
+	        el.animate({ "path" : "M" + barX + "," + bottom +
                 "L" + barX + "," + barY +
                 "L" + (barX+barWidth) + "," + barY +
-                "L" + (barX+barWidth) + "," + xaxis.y } , 1000 );
+                "L" + (barX+barWidth) + "," + bottom } , 1000 );
 	        
 	        el.x = barX+ (barWidth/2);
 	        el.top = barY;
-	        el.bottom = xaxis.y;
+	        el.bottom = bottom;
 	        
 	        if( Raphael.is( object , "object" ) ) {
+	        
+	        	if( options.labels ) {
+		        	
+		        	var label = paper.text( el.x , el.bottom + ((value < 0) ? -10 : 10) , object.label ).attr({
+			        	"text-anchor" : "middle",
+			        	"font"        : options.labelFont
+		        	});
+		        	
+		        	el.label = label;
+		        	
+	        	}
+	        
 	        	el.charts = object;
 	        }
 	        
