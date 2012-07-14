@@ -17,6 +17,7 @@
 <h3>Raphael Charting Library</h3>
 
 <div id="holder-column" style="width: 600px; height: 600px; border: solid 1px #222;"></div>
+<div id="holder-bar" style="width: 600px; height: 600px; border: solid 1px #222;"></div>
 <div id="holder-line" style="width: 600px; height: 600px; border: solid 1px #222;"></div>
 
 <script type="text/javascript" src="libs/raphael.js"></script>
@@ -30,7 +31,7 @@ window.onload = function() {
 	
 	var linePaper = new Raphael( "holder-line" );
 	
-	var chartLine = linePaper.linechart( 0 , 0 , 600, 600, [[
+	linePaper.linechart( 0 , 0 , 600, 600, [[
         	{ "x": 0, "y": 0 },
         	{ "x": 10, "y": 20 },
         	{ "x": 20, "y": 10 },
@@ -47,10 +48,22 @@ window.onload = function() {
         "title"  : "Line Chart",
         "labels": true
     });
+    
+    var barPaper = new Raphael( "holder-column" );
+	
+	barPaper.barchart( 0 , 0 , 600 , 600 , [
+		{ "value" : -10 , "label" : "Test 1" } ,
+		{ "value" : 25 , "label" : "Test 2" } , 
+		{ "value" : -20 , "label" : "Test 3" } , 
+		{ "value" : 15 , "label" : "Test 4" } , 
+		{ "value" : 35 , "label" : "Test 5" }],{
+		"title"  : "Column Chart",
+		"labels" : true
+	});
 	
 	var columnPaper = new Raphael( "holder-column" );
 	
-	var chartColumn = columnPaper.columnchart( 0 , 0 , 600 , 600 , [
+	columnPaper.columnchart( 0 , 0 , 600 , 600 , [
 		{ "value" : -10 , "label" : "Test 1" } ,
 		{ "value" : 25 , "label" : "Test 2" } , 
 		{ "value" : -20 , "label" : "Test 3" } , 

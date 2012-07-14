@@ -2,7 +2,7 @@
 
 	var ColumnChart = function( paper , x , y , chartWidth , chartHeight , values , options ) {
 	
-		Raphael.getColor.reset()
+		Raphael.getColor.reset();
 		
 		options = options || {};
 		options.title = options.title || null;
@@ -152,10 +152,10 @@
 	        var height = value * factor;
 	        var barX = yaxis.x + (bars.length * (barWidth + gutterWidth)) + gutterWidth;
 	        var barY = xaxis.y - height;
-	        var bottom = (xaxis.y+((value < 0) ? 1 : -1))
+	        var bottom = (xaxis.y+((value < 0) ? 1 : -1));
 	        
-	        var path =  "M" + barX + "," + (xaxis.y-2) +
-	                    "L" + barX + "," + (xaxis.y-2) +
+	        var path =  "M" + barX + "," + bottom +
+	                    "L" + barX + "," + bottom +
 	                    "L" + (barX+barWidth) + "," + bottom +
 	                    "L" + (barX+barWidth) + "," + bottom;
 	        
