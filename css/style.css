@@ -1,0 +1,44 @@
+body {
+	padding-top: 80px;
+	background: #f1f1f1;
+	color: #777;
+}
+
+#header {
+	height: 50px;
+}
+
+#header .brand {
+	font-size: 18px;
+	line-height: 30px;
+}
+
+#header .navbar-inner {
+	background: #e5e5e5;
+	height: 50px;
+}
+
+#header .navbar-inner .nav li a {
+	line-height: 30px;
+	text-shadow: none;
+	color: #999;
+}
+
+#header .navbar-inner .nav li a:hover {
+	color: #777;
+}
+
+#header .navbar-inner .nav li.active a {
+	background: none;
+	font-weight: bold;
+	color: #666;
+}
+
+h1,h2,h3,h4,h5,h6 {
+	color: #555;
+}
+
+p {
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
