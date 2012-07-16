@@ -1,4 +1,0 @@
-RaphaelCharts
-=============
-
-Raphael charts library.
