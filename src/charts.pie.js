@@ -73,7 +73,7 @@
             ];
             
             var slice = paper.path( path ).attr({
-            	"fill" : Raphael.getColor()
+            	"fill" : object.color || Raphael.getColor()
             });
             
             slices.push( slice );
@@ -96,6 +96,7 @@
 			
 			this.toFront().animate({ "transform" : "s1.10" } , 300 );
 			this.label.toFront().animate({ "transform" : "s1.25" } , 300 );
+			labels.toFront();
 			
 		}).mouseout(function(){
 			
