@@ -32,7 +32,7 @@ var BarChart = function( paper , x , y , chartWidth , chartHeight , values , opt
 	var gutterWidth = options.gutterWidth = options.gutterWidth || 10;
 	
 	if( options.title ) {
-		paper.text( chartWidth/2 + paddingLeft , 20 , options.title ).attr({
+		paper.text( chartWidth/2 + paddingLeft , 5 , options.title ).attr({
 			"font" : "15px sans-serif",
 			"text-anchor" : "middle"
 		});

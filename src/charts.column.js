@@ -16,7 +16,7 @@
 		var gutterWidth = options.gutterWidth = options.gutterWidth || 5;
 		
 		if( options.title ) {
-			paper.text( chartWidth/2 + paddingLeft , paddingTop , options.title ).attr({
+			paper.text( chartWidth/2 + paddingLeft , 5 , options.title ).attr({
 				"font" : "15px sans-serif",
 				"text-anchor" : "middle"
 			});
@@ -48,14 +48,11 @@
 	    
 	    if( minValue < 0 ) {
 	    	factor = (chartHeight - paddingBottom - paddingTop)/( maxValue + (minValue*-1) );
-	    	barBaseLine = y + paddingTop  + chartHeight - paddingBottom - (minValue*-1*factor);
+	    	barBaseLine = y + chartHeight - paddingBottom - (minValue*-1*factor);
 	    } else {
 	    	factor = (chartHeight - paddingBottom - paddingTop)/( maxValue );
-	    	barBaseLine = y + chartHeight - paddingBottom + paddingTop;
+	    	barBaseLine = y + chartHeight - paddingBottom;
 	    }
-	    
-	    console.log( "Factor: " , factor );
-	    console.log( "Baseline: " , barBaseLine );
 	    
 	     var xaxis = {
 	    	"x"     : x + paddingLeft,
@@ -65,7 +62,7 @@
 	    
 	    var yaxis = {
 	    	"x"      : x + paddingLeft,
-	    	"y"      : y + paddingTop*2,
+	    	"y"      : y + paddingTop,
 	    	"height" : chartHeight - paddingTop - paddingBottom
 	    };
 	    

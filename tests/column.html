@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Pie Chart</title>
+<script src="../libs/raphael.js"></script>
+<script src="../src/charts.column.js"></script>
+</head>
+<body>
+
+<div id="holder" style="width: 600px; height: 600px;"></div>
+
+<script>
+
+window.onload = function(){
+	
+	var paper = new Raphael( "holder" );
+	
+	paper.columnchart( 0 , 0 , 600 , 600 , [
+	                         			{ "value" : 10 , "label" : "Test 1" } ,
+	                        			{ "value" : 25 , "label" : "Test 2" } , 
+	                        			{ "value" : 20 , "label" : "Test 3" } , 
+	                        			{ "value" : 15 , "label" : "Test 4" } , 
+	                        			{ "value" : 35 , "label" : "Test 5" }], {
+		"labels" : true,
+		"title" : "Column Chart",
+		"paddingTop" : 40
+	});
+	
+}
+
+</script>
+</body>
+</html>
