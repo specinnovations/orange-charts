@@ -105,17 +105,13 @@
             var xCounter = 0;
             var xInterval = 1;
 
-            if (maxValue > 10000000 || minValue < -10000000) {
-	            interval = 1000000;
-	        } else if (maxValue > 1000000 || minValue < -1000000) {
-	            interval = 100000;
-	        } else if (maxValue > 100000 || minValue < -100000) {
-	            interval = 10000;
-	        } else if (maxValue > 10000 || minValue < -10000) {
-	            interval = 1000;
-	        } else if (maxValue > 1000 || minValue < -1000) {
-	            interval = 100;
-	        } else if (maxValue > 500 || minValue < -500) {
+            if (maxValue > 1000 || minValue < -1000) {
+				   
+		    	var value = Math.max( maxValue , Math.abs( minValue ) );
+				   
+				interval = Math.floor(value * .1);
+		           
+		    } else if (maxValue > 500 || minValue < -500) {
 	            interval = 50;
 	        } else if (maxValue > 250 || minValue < -250) {
 	            interval = 10;
