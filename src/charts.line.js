@@ -105,17 +105,25 @@
             var xCounter = 0;
             var xInterval = 1;
 
-            if (maxXValue > 1000 || minXValue < -1000) {
-                xInterval = 100;
-            } else if (maxXValue > 500 || minXValue < -500) {
-                xInterval = 50;
-            } else if (maxXValue > 250 || minXValue < -250) {
-                xInterval = 10;
-            }  else if (maxXValue > 100 || minXValue < -100) {
-                xInterval = 5;
-            } else {
-                xInterval = 2;
-            }
+            if (maxValue > 10000000 || minValue < -10000000) {
+	            interval = 1000000;
+	        } else if (maxValue > 1000000 || minValue < -1000000) {
+	            interval = 100000;
+	        } else if (maxValue > 100000 || minValue < -100000) {
+	            interval = 10000;
+	        } else if (maxValue > 10000 || minValue < -10000) {
+	            interval = 1000;
+	        } else if (maxValue > 1000 || minValue < -1000) {
+	            interval = 100;
+	        } else if (maxValue > 500 || minValue < -500) {
+	            interval = 50;
+	        } else if (maxValue > 250 || minValue < -250) {
+	            interval = 10;
+	        }  else if (maxValue > 100 || minValue < -100) {
+	            interval = 5;
+	        } else {
+	            interval = 2;
+	        }
 
             for(var i = (minXValue < 0) ? minXValue : 0, ii = maxXValue; i <= ii; i++) {
 

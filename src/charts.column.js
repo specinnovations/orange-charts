@@ -11,7 +11,7 @@
 		
 		var paddingTop = options.paddingTop = options.paddingTop || 10;
 		var paddingBottom = options.paddingBottom = options.paddingBottom || (options.labels ? 30 : 5);
-		var paddingLeft = options.paddingLeft = options.paddingLeft || (options.labels ? 30 : 5);
+		var paddingLeft = options.paddingLeft = options.paddingLeft || (options.labels ? 55 : 5);
 		var paddingRight = options.paddingRight = options.paddingRight || 5;
 		var gutterWidth = options.gutterWidth = options.gutterWidth || 5;
 		
@@ -94,7 +94,15 @@
 	    	var counter = 0;
 		    var interval = 1;
 		    
-		    if (maxValue > 1000 || minValue < -1000) {
+		    if (maxValue > 10000000 || minValue < -10000000) {
+	            interval = 1000000;
+	        } else if (maxValue > 1000000 || minValue < -1000000) {
+	            interval = 100000;
+	        } else if (maxValue > 100000 || minValue < -100000) {
+	            interval = 10000;
+	        } else if (maxValue > 10000 || minValue < -10000) {
+	            interval = 1000;
+	        } else if (maxValue > 1000 || minValue < -1000) {
 	            interval = 100;
 	        } else if (maxValue > 500 || minValue < -500) {
 	            interval = 50;
@@ -106,7 +114,7 @@
 	            interval = 2;
 	        }
 		    
-		    for( var i=(minValue < 0) ? minValue : 0, ii=maxValue; i<=ii; i += interval ) {
+		    for( var i=(minValue < 0) ? minValue : 0, ii=maxValue; i<=ii; i++ ) {
 		    	
 		    	if( i % interval == 0 ) {
 		    			
@@ -117,7 +125,7 @@
 		        	
 		    	}
 		    	
-		    	if( i % 2 == 0 || i == 0 ) {
+		    	if( i % (interval*2) == 0 || i == 0 ) {
 		    		
 		    		var label = paper.text( yaxis.x - 10 , yaxis.y + yaxis.height - (factor * counter) , i ).attr({
 		    			"font"        : options.labelFont,
