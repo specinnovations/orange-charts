@@ -104,21 +104,18 @@
 
             var xCounter = 0;
             var xInterval = 1;
-
-            if (maxValue > 1000 || minValue < -1000) {
-				   
-		    	var value = Math.max( maxValue , Math.abs( minValue ) );
-				   
-				interval = Math.floor(value * .1);
-		           
-		    } else if (maxValue > 500 || minValue < -500) {
-	            interval = 50;
-	        } else if (maxValue > 250 || minValue < -250) {
-	            interval = 10;
-	        }  else if (maxValue > 100 || minValue < -100) {
-	            interval = 5;
+            
+            if (maxXValue > 1000 || minXValue < -1000) {
+		    	var value = Math.max( maxXValue , Math.abs( minXValue ) );
+				xInterval = Math.floor(value * .1);
+		    } else if (maxXValue > 500 || minXValue < -500) {
+	            xInterval = 50;
+	        } else if (maxXValue > 250 || minXValue < -250) {
+	            xInterval = 10;
+	        }  else if (maxXValue > 100 || minXValue < -100) {
+	            xInterval = 5;
 	        } else {
-	            interval = 2;
+	            xInterval = 2;
 	        }
 
             for(var i = (minXValue < 0) ? minXValue : 0, ii = maxXValue; i <= ii; i++) {

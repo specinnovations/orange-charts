@@ -93,11 +93,8 @@ var BarChart = function( paper , x , y , chartWidth , chartHeight , values , opt
 	    var interval = 1;
 	    
 	   if (maxValue > 1000 || minValue < -1000) {
-		   
 		   var value = Math.max( maxValue , Math.abs( minValue ) );
-		   
            interval = Math.floor(value * .1);
-           
         } else if (maxValue > 500 || minValue < -500) {
             interval = 50;
         } else if (maxValue > 250 || minValue < -250) {
