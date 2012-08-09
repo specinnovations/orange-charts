@@ -106,7 +106,7 @@
 	            interval = 2;
 	        }
 		    
-		    for( var i=(minValue < 0) ? minValue : 0, ii=maxValue; i<=ii; i++ ) {
+		    for( var i=(minValue < 0) ? minValue : 0, ii=maxValue; i<=ii; i += interval ) {
 		    	
 		    	if( i % interval == 0 ) {
 		    			
@@ -117,7 +117,7 @@
 		        	
 		    	}
 		    	
-		    	if( i % (interval*2) == 0 || i == 0 ) {
+		    	if( i % 2 == 0 || i == 0 ) {
 		    		
 		    		var label = paper.text( yaxis.x - 10 , yaxis.y + yaxis.height - (factor * counter) , i ).attr({
 		    			"font"        : options.labelFont,
