@@ -50,7 +50,7 @@
 	    	factor = (chartHeight - paddingBottom - paddingTop)/( maxValue + (minValue*-1) );
 	    	barBaseLine = y + chartHeight - paddingBottom - (minValue*-1*factor);
 	    } else {
-	    	factor = (chartHeight - paddingBottom - paddingTop)/( maxValue );
+	    	factor = (chartHeight - paddingBottom - paddingTop)/( maxValue != 0 ? maxValue : 1 );
 	    	barBaseLine = y + chartHeight - paddingBottom;
 	    }
 	    
@@ -109,16 +109,17 @@
 		    
 		    for( var i=(minValue < 0) ? minValue : 0, ii=maxValue; i<=ii; i++ ) {
 		    	
-		    	if( i % interval == 0 ) {
-		    			
-		    		var path = "M" + (xaxis.x - 3)  + "," +  (yaxis.y + yaxis.height - (factor*counter)) +
-		        	            "L" + (xaxis.x + 3)  + "," +  (yaxis.y + yaxis.height - (factor*counter));
+		    	if( i % interval == 0) {
+		    		
+		    		console.log( yaxis.y , yaxis.height , factor , counter );
+		    		
+		    		var path = "M" + (yaxis.x - 3) + "," + (yaxis.y + yaxis.height - (factor * counter)) + "L" + (yaxis.x + 3) + "," + (yaxis.y + yaxis.height - (factor * counter));
 		        	
 		        	borders.push( paper.path( path ) );
 		        	
 		    	}
 		    	
-		    	if( i % (interval*2) == 0 || i == 0 ) {
+		    	if( i % (interval*2) == 0) {
 		    		
 		    		var label = paper.text( yaxis.x - 10 , yaxis.y + yaxis.height - (factor * counter) , i ).attr({
 		    			"font"        : options.labelFont,

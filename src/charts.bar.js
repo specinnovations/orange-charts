@@ -50,7 +50,7 @@ var BarChart = function( paper , x , y , chartWidth , chartHeight , values , opt
     	factor = (chartWidth - paddingLeft - paddingRight)/( maxValue + (minValue*-1) );
     	barBaseLine = x + paddingLeft + (minValue*-1*factor);
     } else {
-    	factor = (chartWidth - paddingLeft - paddingRight)/( maxValue );
+    	factor = (chartWidth - paddingLeft - paddingRight)/( maxValue != 0 ? maxValue : 1  );
     	barBaseLine = x + paddingLeft;
     }
     
