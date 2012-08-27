@@ -92,22 +92,9 @@
 	    if( options.labels ) {
 	    	
 	    	var counter = 0;
-		    var interval = 1;
+		    var interval = Math.ceil(Math.max( maxValue , Math.abs( minValue ) ) * .1) || 1;
 		    
-		    if (maxValue > 1000 || minValue < -1000) {
-		    	var value = Math.max( maxValue , Math.abs( minValue ) );
-				interval = Math.floor(value * .1);
-		    } else if (maxValue > 500 || minValue < -500) {
-	            interval = 50;
-	        } else if (maxValue > 250 || minValue < -250) {
-	            interval = 10;
-	        }  else if (maxValue > 100 || minValue < -100) {
-	            interval = 5;
-	        } else {
-	            interval = 2;
-	        }
-		    
-		    for( var i=(minValue < 0) ? minValue : 0, ii=maxValue; i<=ii; i++ ) {
+		    for( var i=(minValue < 0) ? minValue : 0, ii=maxValue; i<=ii; i+interval ) {
 		    	
 		    	if( i % interval == 0) {
 		    		

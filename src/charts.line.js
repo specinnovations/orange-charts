@@ -103,22 +103,9 @@
         if(options.labels) {
 
             var xCounter = 0;
-            var xInterval = 1;
-            
-            if (maxXValue > 1000 || minXValue < -1000) {
-		    	var value = Math.max( maxXValue , Math.abs( minXValue ) );
-				xInterval = Math.floor(value * .1);
-		    } else if (maxXValue > 500 || minXValue < -500) {
-	            xInterval = 50;
-	        } else if (maxXValue > 250 || minXValue < -250) {
-	            xInterval = 10;
-	        }  else if (maxXValue > 100 || minXValue < -100) {
-	            xInterval = 5;
-	        } else {
-	            xInterval = 2;
-	        }
+            var xInterval = Math.ceil(Math.max( maxXValue , Math.abs( minXValue ) ) * .1) || 1;
 
-            for(var i = (minXValue < 0) ? minXValue : 0, ii = maxXValue; i <= ii; i++) {
+            for(var i = (minXValue < 0) ? minXValue : 0, ii = maxXValue; i <= ii; i+xInterval) {
 
                 if (i % xInterval == 0 && i !== 0) {
 
@@ -142,19 +129,9 @@
             }
 
             var yCounter = 0;
-            var yInterval = 1;
+            var yInterval = Math.ceil(Math.max( maxYValue , Math.abs( minYValue ) ) * .1) || 1;
 
-            if(maxYValue > 1000 || minYValue < -1000) {
-                yInterval = 100;
-            } else if(maxYValue > 500 || minYValue < -500) {
-                yInterval = 50;
-            } else if(maxYValue > 100 || minYValue < -100) {
-                yInterval = 10;
-            } else {
-                yInterval = 2;
-            }
-
-            for(var i=(minYValue < 0) ? minYValue : 0, ii=maxYValue; i <= ii; i++) {
+            for(var i=(minYValue < 0) ? minYValue : 0, ii=maxYValue; i <= ii; i+yInterval) {
 
                 if(i % yInterval == 0) {
 
