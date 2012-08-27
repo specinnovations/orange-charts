@@ -98,8 +98,6 @@
 		    	
 		    	if( i % interval == 0) {
 		    		
-		    		console.log( yaxis.y , yaxis.height , factor , counter );
-		    		
 		    		var path = "M" + (yaxis.x - 3) + "," + (yaxis.y + yaxis.height - (factor * counter)) + "L" + (yaxis.x + 3) + "," + (yaxis.y + yaxis.height - (factor * counter));
 		        	
 		        	borders.push( paper.path( path ) );
